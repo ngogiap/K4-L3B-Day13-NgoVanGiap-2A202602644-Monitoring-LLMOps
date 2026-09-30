@@ -9,6 +9,19 @@ PII_PATTERNS: dict[str, str] = {
     "cccd": r"\b\d{12}\b",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
     # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
+    "passport": r"\b[A-Z]{1,2}\d{7,8}\b",
+    "vn_address": (
+        r"(?:"
+        # "số X, đường/phố Y, phường/xã Z, quận/huyện W"
+        r"(?:số\s*\d+[\w\s,]*)?(?:(?:đường|phố|ngõ|hẻm|ngách)[^\S\r\n]+[\w\d]+(?:[\s,]+[\w\d]+){0,4})"
+        r"[\s,]*(?:(?:phường|xã|thôn|ấp|thị\s*trấn)[^\S\r\n]+[\w\d]+(?:[\s,]+[\w\d]+){0,3})?"
+        r"[\s,]*(?:(?:quận|huyện|thị\s*xã)[^\S\r\n]+[\w\d]+(?:[\s,]+[\w\d]+){0,3})?"
+        r"[\s,]*(?:(?:tỉnh|thành\s*phố|tp\.?)[^\S\r\n]+[\w\d]+(?:[\s,]+[\w\d]+){0,3})?"
+        r"|"
+        # standalone city/province keywords with value
+        r"(?:tỉnh|thành\s*phố|tp\.?)\s+[\w\d]+(?:[\s,]+[\w\d]+){0,3}"
+        r")"
+    ),
 }
 
 
